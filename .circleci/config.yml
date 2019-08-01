@@ -11,7 +11,7 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - cache-test-suite-20190725
+            - cache-test-suite-{{ checksum ".circleci/config.yml" }}
 
       - run:
           name: Installing test suite
@@ -23,14 +23,14 @@ commands:
       - save_cache:
           paths:
             - ./venv
-          key: cache-test-suite-20190725
+          key: cache-test-suite-{{ checksum ".circleci/config.yml" }}
 
   install-sam:
     description: Install AWS SAM
     steps:
       - restore_cache:
           keys:
-            - cache-sam-20190725
+            - cache-sam-{{ checksum ".circleci/config.yml" }}
 
       - run:
           name: Installing AWS SAM CLI
@@ -42,7 +42,7 @@ commands:
       - save_cache:
           paths:
             - ./venv
-          key: cache-sam-20190725
+          key: cache-sam-{{ checksum ".circleci/config.yml" }}
 
 jobs:
   unit-tests:
